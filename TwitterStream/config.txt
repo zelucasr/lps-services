@@ -1,0 +1,5 @@
+k neymar
+k lula
+k pizza
+u http://localhost:8080/post-receiver/sendpost
+l pt

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body style="margin:50px;">
+    <h2>Social Sentiment</h2>
+        
+        <h:form id="form1">
+        
+        	<h:panelGrid columns="2" cellpadding="5">
+		        <h:outputLabel for="texto" value="Texto de busca:" style="font-weight:bold" />
+		        <p:inputText id="texto" value="#{sentimentBean.searchString}" />
+		        
+		        <h:outputLabel for="limite" value="Limite de tweets:" style="font-weight:bold" />
+        		<p:spinner id="limite" value="#{sentimentBean.limit}" />
+		        
+		        <h:outputLabel for="usuario" value="Por usuário:" style="font-weight:bold" />
+		        <p:inputText id="usuario" value="#{sentimentBean.user}" />
+		        
+		    </h:panelGrid>
+		    
+		     <h:panelGrid columns="4" cellpadding="5">
+		        
+		        	<h:outputLabel for="date1" value="Intervalo:" style="font-weight:bold" />
+		        	<p:calendar locale="pt" showButtonPanel="true" value="#{sentimentBean.dateQuerySince}" navigator="true" id="date1" pattern="dd/MM/yyyy" showOn="button">
+		        	</p:calendar>
+		        	
+		        	<h:outputLabel value="até" style="font-weight:bold" />
+		        	<p:calendar locale="pt" showButtonPanel="true" value="#{sentimentBean.dateQueryUntil}" navigator="true" id="date2" pattern="dd/MM/yyyy" showOn="button">
+		        	</p:calendar>
+		        	
+		        </h:panelGrid>
+		        <br/>
+		    
+		    <p:commandButton value="Pesquisar" update="form1" actionListener="#{sentimentBean.findTweets}" icon="ui-icon-search" />
+		    
+		    <p:chart type="pie" responsive="true" rendered="#{sentimentBean.renderChart}" model="#{sentimentBean.pieChart}" />
+		    
+		    <p:dataTable var="post" id="data" value="#{sentimentBean.posts}">
+		    	<p:column headerText="Id">
+			        <h:outputText value="#{post.id}" />
+			    </p:column>
+		    
+			    <p:column headerText="Texto">
+			        <h:outputText value="#{post.text}" />
+			    </p:column>
+			 
+			    <p:column headerText="Data">
+			        <h:outputText value="#{post.date}" />
+			    </p:column>
+			    
+			    <p:column headerText="Link">
+			        <h:outputText value="#{post.link}" />
+			    </p:column>
+			    
+			    <p:column headerText="Sentimento">
+			        <h:outputText value="#{post.sentiment}" />
+			    </p:column>
+			</p:dataTable>
+        
+        	
+		</h:form>
+</h:body>
+</html>
